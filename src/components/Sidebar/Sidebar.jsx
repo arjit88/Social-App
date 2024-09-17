@@ -21,7 +21,7 @@ const Sidebar = () => {
       icon: (
         <Avatar
           size={"sm"}
-          name="Burak Orkmez"
+          name="Arjit Anand"
           src="/profile.png"
           filter="invert(100%)"
         />
