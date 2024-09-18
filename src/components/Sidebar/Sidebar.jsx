@@ -18,14 +18,7 @@ const Sidebar = () => {
     { id: 4, icon: <CreatePostLogo />, text: "Create" },
     {
       id: 5,
-      icon: (
-        <Avatar
-          size={"sm"}
-          name="Arjit Anand"
-          src="/profile.png"
-          filter="invert(100%)"
-        />
-      ),
+      icon: <Avatar size={"sm"} name="Arjit Anand" src="/luffy.png" />,
       text: "Profile",
       link: "/",
     },
