@@ -28,6 +28,7 @@ const SuggestedHeader = () => {
         _hover={{ background: "transparent" }}
         fontSize={14}
         fontWeight={"medium"}
+        p={0}
         color={"blue.400"}
         cursor={"pointer"}
         onClick={handleLogout}
