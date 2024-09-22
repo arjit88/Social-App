@@ -27,6 +27,7 @@ import usePostStore from "../../store/postStore";
 import { deleteObject, ref } from "firebase/storage";
 import { firestore, storage } from "../../firebase/firebase";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import Caption from "../Comment/Caption";
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -181,31 +182,18 @@ const ProfilePost = ({ post }) => {
                   maxH={"350px"}
                   overflowY={"auto"}
                 >
-                  <Comment
-                    createdAt="1d ago"
-                    username="arjit_anand"
-                    profilePic="https://images.pexels.com/photos/943084/pexels-photo-943084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    text="Dummy images from unsplash"
-                  />
+                  {/* CAPTION */}
+                  {post.caption && <Caption post={post} />}
 
-                  <Comment
-                    createdAt="12h ago"
-                    username="abrahmov"
-                    profilePic="https://bit.ly/dan-abramov"
-                    text="Nice pic"
-                  />
-
-                  <Comment
-                    createdAt="3h ago"
-                    username="kentdodds"
-                    profilePic="https://bit.ly/kent-c-dodds"
-                    text="Good clone dude!"
-                  />
+                  {/* COMMENTS */}
+                  {post.comments.map((comment) => (
+                    <Comment key={comment.id} comment={comment} />
+                  ))}
                 </VStack>
 
-                <Divider my={4} bg={"gray.800"} />
+                <Divider my={4} bg={"gray.8000"} />
 
-                <PostFooter isProfilePage={true} />
+                <PostFooter isProfilePage={true} post={post} />
               </Flex>
             </Flex>
           </ModalBody>
