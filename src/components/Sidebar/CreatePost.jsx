@@ -25,7 +25,6 @@ import useAuthStore from "../../store/authStore";
 import usePostStore from "../../store/postStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import { useLocation } from "react-router-dom";
-import { firestore, storage } from "../../firebase/firebase";
 import {
   addDoc,
   arrayUnion,
@@ -33,6 +32,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { firestore, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 const CreatePost = () => {
@@ -147,6 +147,7 @@ function useCreatePost() {
   const authUser = useAuthStore((state) => state.user);
   const createPost = usePostStore((state) => state.createPost);
   const addPost = useUserProfileStore((state) => state.addPost);
+  const userProfile = useUserProfileStore((state) => state.userProfile);
   const { pathname } = useLocation();
 
   const handleCreatePost = async (selectedFile, caption) => {
@@ -174,8 +175,11 @@ function useCreatePost() {
 
       newPost.imageURL = downloadURL;
 
-      createPost({ ...newPost, id: postDocRef.id });
-      addPost({ ...newPost, id: postDocRef.id });
+      if (userProfile.uid === authUser.uid)
+        createPost({ ...newPost, id: postDocRef.id });
+
+      if (pathname !== "/" && userProfile.uid === authUser.uid)
+        addPost({ ...newPost, id: postDocRef.id });
 
       showToast("Success", "Post created successfully", "success");
     } catch (error) {

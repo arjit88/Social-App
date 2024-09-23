@@ -11,8 +11,8 @@ import {
   ModalContent,
   ModalOverlay,
   Text,
-  useDisclosure,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
@@ -23,10 +23,10 @@ import useUserProfileStore from "../../store/userProfileStore";
 import useAuthStore from "../../store/authStore";
 import useShowToast from "../../hooks/useShowToast";
 import { useState } from "react";
-import usePostStore from "../../store/postStore";
 import { deleteObject, ref } from "firebase/storage";
 import { firestore, storage } from "../../firebase/firebase";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import usePostStore from "../../store/postStore";
 import Caption from "../Comment/Caption";
 
 const ProfilePost = ({ post }) => {
@@ -87,15 +87,16 @@ const ProfilePost = ({ post }) => {
           zIndex={1}
           justifyContent={"center"}
         >
-          <Flex alignItems={"center"} justifyContent={"center"} gap={6}>
+          <Flex alignItems={"center"} justifyContent={"center"} gap={50}>
             <Flex>
-              <AiFillHeart size={24} />
+              <AiFillHeart size={20} />
               <Text fontWeight={"bold"} ml={2}>
                 {post.likes.length}
               </Text>
             </Flex>
+
             <Flex>
-              <FaComment size={24} />
+              <FaComment size={20} />
               <Text fontWeight={"bold"} ml={2}>
                 {post.comments.length}
               </Text>
@@ -105,7 +106,7 @@ const ProfilePost = ({ post }) => {
 
         <Image
           src={post.imageURL}
-          alt="Profile_post"
+          alt="profile post"
           w={"100%"}
           h={"100%"}
           objectFit={"cover"}
@@ -133,17 +134,16 @@ const ProfilePost = ({ post }) => {
                 borderRadius={4}
                 overflow={"hidden"}
                 border={"1px solid"}
-                borderColor={"WhiteAlpha.300"}
+                borderColor={"whiteAlpha.300"}
                 flex={1.5}
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Image src={post.imageURL} alt="Profile_Post" />
+                <Image src={post.imageURL} alt="profile post" />
               </Flex>
-
               <Flex
                 flex={1}
-                flexDirection={"column"}
+                flexDir={"column"}
                 px={10}
                 display={{ base: "none", md: "flex" }}
               >
@@ -173,24 +173,21 @@ const ProfilePost = ({ post }) => {
                     </Button>
                   )}
                 </Flex>
-
                 <Divider my={4} bg={"gray.500"} />
 
                 <VStack
-                  w={"full"}
+                  w="full"
                   alignItems={"start"}
                   maxH={"350px"}
                   overflowY={"auto"}
                 >
                   {/* CAPTION */}
                   {post.caption && <Caption post={post} />}
-
                   {/* COMMENTS */}
-                  {post.comments.map((comment) => (
-                    <Comment key={comment.id} comment={comment} />
+                  {post.comments.map((comment, index) => (
+                    <Comment key={index} comment={comment} />
                   ))}
                 </VStack>
-
                 <Divider my={4} bg={"gray.8000"} />
 
                 <PostFooter isProfilePage={true} post={post} />

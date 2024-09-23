@@ -7,7 +7,6 @@ const Comment = ({ comment }) => {
   const { userProfile, isLoading } = useGetUserProfileById(comment.createdBy);
 
   if (isLoading) return <CommentSkeleton />;
-
   return (
     <Flex gap={4}>
       <Link to={`/${userProfile.username}`}>
@@ -20,11 +19,9 @@ const Comment = ({ comment }) => {
               {userProfile.username}
             </Text>
           </Link>
-
           <Text fontSize={14}>{comment.comment}</Text>
         </Flex>
-
-        <Text fontSize={12} color={"gray."}>
+        <Text fontSize={12} color={"gray"}>
           {timeAgo(comment.createdAt)}
         </Text>
       </Flex>
